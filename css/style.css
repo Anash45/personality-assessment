@@ -1,0 +1,7 @@
+.checked{
+    background-color: lightgreen;
+}
+
+.table label{
+    cursor: pointer;
+}
