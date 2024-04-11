@@ -20,13 +20,13 @@ try {
         if (!$email) {
             $info = '<p class="alert alert-danger">Invalid email address.</p>';
         } else {
-            // Check if the email is present in the allowed_users table
-            $stmt = $conn->prepare("SELECT * FROM allowed_users WHERE email = :email");
+            // Check if the email is present in the allowed_emails table
+            $stmt = $conn->prepare("SELECT * FROM allowed_emails WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
             if ($stmt->rowCount() == 0) {
-                // Email not found in allowed_users table
+                // Email not found in allowed_emails table
                 $info = '<p class="alert alert-danger">You are not in the allowed users list.</p>';
             } else {
                 // Check if the user with the same email already exists in the users table
