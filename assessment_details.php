@@ -33,10 +33,8 @@ if (isset($_GET['resultID'])) {
             // Handle any database errors
             $info = '<p class="alert alert-danger">Database error: ' . $e->getMessage() . '</p>';
         }
-    } else {
-        // Note ID parameter is missing in the request
-        $info = '<p class="alert alert-danger">Error: Note ID parameter is missing.</p>';
     }
+    
     // Check if the form data is received via POST request
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAdmin()) {
         // Extract the note and private checkbox values from the POST data
