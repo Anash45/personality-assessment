@@ -34,7 +34,7 @@ if (isset($_GET['resultID'])) {
             $info = '<p class="alert alert-danger">Database error: ' . $e->getMessage() . '</p>';
         }
     }
-    
+
     // Check if the form data is received via POST request
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAdmin()) {
         // Extract the note and private checkbox values from the POST data
@@ -121,7 +121,7 @@ if (isset($_GET['resultID'])) {
             foreach ($notes as $note) {
                 // Corrected assignment of $noteType
                 $noteType = ($note['private'] == 1) ? 'Private Note' : 'Public Note';
-                $deleteNote = (isAdmin()) ? "<a href='?resultID=".$resultID."&deleteNote=".$note['noteID']."' class='btn btn-sm btn-danger ms-2 lh-1 px-2 py-1'><i class='fa fa-trash' style='font-size: 10px;'></i></a>" : '';
+                $deleteNote = (isAdmin()) ? "<a href='?resultID=".$resultID."&deleteNote=".$note['noteID']."' class='btn btn-sm btn-danger me-2 lh-1 px-2 py-1'><i class='fa fa-trash' style='font-size: 10px;'></i></a>" : '';
                 $show .= "<tr><th class='bg-dark text-white'>" . $noteType . "</th><td><span>" . $note['noteText'] . "</span>".$deleteNote."</td></tr>";
             }
         }
@@ -177,7 +177,7 @@ if (isset($_GET['resultID'])) {
                             echo '
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#noteModal"> Add Note </button>
-                                <a class="btn btn-success" href="?resultID='.$resultID.'&mailResults='.$resultID.'"><i class="fa fa-envelope ms-2"></i><span>Mail Results</span></a>';
+                                <a class="btn btn-success" href="?resultID='.$resultID.'&mailResults='.$resultID.'"><i class="fa fa-envelope me-2"></i><span>Mail Results</span></a>';
                         }
                         ?>
                     </div>
