@@ -78,7 +78,7 @@ function mailResults($resultID)
         $headers .= "From: Assessment Results <admin@f4futuretech.com>" . "\r\n";
 
         // Send the email
-        // mail($to, $subject, $message, $headers);
+        mail($to, $subject, $message, $headers);
 
     }
 }
