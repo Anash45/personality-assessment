@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <body>
         <div class="container">
+            <a href="assessments.php" class="btn btn-primary">My assessments</a>
             <h1 class="text-center fw-bold my-4"> Personality Assesment </h1>
             <form action="" method="POST" class="row justify-content-between" id="assessment_form">
                 <div class="col-12">

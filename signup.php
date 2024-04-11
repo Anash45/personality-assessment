@@ -20,31 +20,42 @@ try {
         if (!$email) {
             $info = '<p class="alert alert-danger">Invalid email address.</p>';
         } else {
-            // Check if the user with the same email already exists
-            $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+            // Check if the email is present in the allowed_users table
+            $stmt = $conn->prepare("SELECT * FROM allowed_users WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
-                $info = '<p class="alert alert-danger">User with the same email already exists.</p>';
+            if ($stmt->rowCount() == 0) {
+                // Email not found in allowed_users table
+                $info = '<p class="alert alert-danger">You are not in the allowed users list.</p>';
             } else {
-                // Insert user data into the users table
-                $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
-                $stmt->bindParam(':name', $name);
+                // Check if the user with the same email already exists in the users table
+                $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':password', $password);
-                $stmt->bindParam(':role', $role);
                 $stmt->execute();
 
-                // Check if user was successfully registered
                 if ($stmt->rowCount() > 0) {
-                    $info = '<p class="alert alert-success">User registered successfully.</p>';
+                    $info = '<p class="alert alert-danger">User with the same email already exists.</p>';
                 } else {
-                    $info = '<p class="alert alert-danger">Failed to register user.</p>';
+                    // Insert user data into the users table
+                    $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
+                    $stmt->bindParam(':name', $name);
+                    $stmt->bindParam(':email', $email);
+                    $stmt->bindParam(':password', $password);
+                    $stmt->bindParam(':role', $role);
+                    $stmt->execute();
+
+                    // Check if user was successfully registered
+                    if ($stmt->rowCount() > 0) {
+                        $info = '<p class="alert alert-success">User registered successfully.</p>';
+                    } else {
+                        $info = '<p class="alert alert-danger">Failed to register user.</p>';
+                    }
                 }
             }
         }
     }
+
 } catch (PDOException $e) {
     // Display error message
     $info = '<p class="alert alert-danger">Error: ' . $e->getMessage() . '</p>';

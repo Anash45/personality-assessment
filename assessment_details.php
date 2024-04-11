@@ -10,6 +10,11 @@ $show = $info = '';
 
 if (isset($_GET['resultID'])) {
     $resultID = $_GET['resultID'];
+    if (isset($_GET['mailResults'])) {
+        mailResults($resultID);
+        $info = '<p class="alert alert-success">Updated results sent to user via E-mail.</p>';
+    }
+
     if(isset($_GET['deleteNote']) && isAdmin()) {
         // Sanitize and store the note ID
         $noteID = $_GET['deleteNote'];
@@ -173,7 +178,8 @@ if (isset($_GET['resultID'])) {
                         if (isAdmin()) {
                             echo '
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#noteModal"> Add Note </button>';
+                                data-bs-target="#noteModal"> Add Note </button>
+                                <a class="btn btn-success" href="?resultID='.$resultID.'&mailResults='.$resultID.'"><i class="fa fa-envelope ms-2"></i><span>Mail Results</span></a>';
                         }
                         ?>
                     </div>
