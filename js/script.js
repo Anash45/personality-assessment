@@ -45,11 +45,15 @@ function calculateScores() {
         })
 })();
 
+let validatedOnce = false;
 if ($('#strengths')) {
     $(document).ready(function () {
         optionChanged();
         $('.option').change(function () {
             optionChanged();
+            if (validatedOnce) {
+                validateOptions();
+            }
         });
     })
 }
@@ -59,6 +63,8 @@ if ($('#assessment_form')) {
         console.log($('#score1').val());
         let totalScores = parseInt($('#score1').val()) + parseInt($('#score2').val());
         console.log(totalScores);
+        validateOptions();
+        validatedOnce = true;
         if ($('#score1').val() == 0 || $('#score2').val() == 0 || (totalScores != 20)) {
             e.preventDefault();
             $('#errorModal').modal('show');
@@ -69,4 +75,24 @@ if ($('#assessment_form')) {
             }, 3000);
         }
     })
+}
+
+function validateOptions() {
+    for (let i = 1; i <= 20; i++) {
+        console.log(isOptionChecked(i));
+        if (!isOptionChecked(i)) {
+            $('.option[name="option' + i + '"]').closest('tr').addClass('notChecked');
+        }else{
+            $('.option[name="option' + i + '"]').closest('tr').removeClass('notChecked');
+        }
+    }
+}
+
+
+function isOptionChecked(optNum) {
+    if ($('.option[name="option' + optNum + '"]:checked').length > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }

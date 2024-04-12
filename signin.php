@@ -69,7 +69,7 @@ $conn = null;
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="text-center ss-body" cz-shortcut-listen="true">
@@ -102,7 +102,7 @@ $conn = null;
         </main>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
     </body>
 
 </html>

@@ -6,9 +6,6 @@ if(!isLoggedIn()){
     header('Location: ./signin.php');
 }
 $info = '';
-if (isset($_GET['info']) && $_GET['info'] == 1) {
-    $info = '<p class="alert alert-success">Assessment data saved successfully and email sent.</p>';
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,7 +21,7 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="dashboard-body">
@@ -47,24 +44,20 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
                 <?php include ('./defines/navbar.php'); ?>
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Assessments</h1>
+                        class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Completed Assessments</h1>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <?php echo $info; ?>
                             <div class="table-responsive">
-                                <table class="table table-light" id="results">
+                                <table class="table w-fit table-light" id="results">
                                     <thead class="bg-dark">
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Strengths</th>
-                                            <th scope="col">Weaknesses</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Action</th>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                            <th>Scores</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -88,21 +81,13 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
                                                 $userStmt->execute([$row['userID']]);
                                                 $user = $userStmt->fetch();
 
-                                                // Separate name into first and last parts
-                                                $nameParts = separateString($user['name']);
-                                                $fname = $nameParts[0];
-                                                $lname = $nameParts[1];
 
                                                 // Display table row
                                                 echo "<tr>";
-                                                echo "<td scope='col'>" . $row['resultID'] . "</td>";
-                                                echo "<td scope='col'>" . $fname . "</td>";
-                                                echo "<td scope='col'>" . $lname . "</td>";
-                                                echo "<td scope='col'>" . $user['email'] . "</td>";
-                                                echo "<td scope='col'>" . $row['score1'] . "</td>";
-                                                echo "<td scope='col'>" . $row['score2'] . "</td>";
-                                                echo "<td scope='col'><span>" . date("M d, Y", strtotime($row['createdAt'])) . "</span></td>";
-                                                echo "<td scope='col'><a href='assessment_details.php?resultID=" . $row['resultID'] . "' class='btn btn-primary'>Details</a></td>";
+                                                echo "<td>" . $user['fname'] . " " . $user['lname'] . "<br>" . $user['email'] . "</td>";
+                                                echo "<td><span>" . date("M d, Y", strtotime($row['createdAt'])) . "</span></td>";
+                                                echo "<td><span>Strengths: " . $row['score1'] . "</span><br><span>Weaknesses: " . $row['score2'] . "</span></td>";
+                                                echo "<td><a href='assessment_details.php?resultID=" . $row['resultID'] . "' class='btn btn-primary btn-sm'>Details</a></td>";
                                                 echo "</tr>";
                                             }
                                         } catch (Exception $e) {
@@ -123,7 +108,7 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
         <script>
             $(document).ready(function () {
                 // Initialize DataTables with date range filtering
@@ -133,7 +118,7 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
                     "ordering": true,
                     "info": true,
                     "columnDefs": [
-                        { "type": "date", "targets": 7 } // Assuming the Date column is at index 7
+                        { "type": "date", "targets": 3 } // Assuming the Date column is at index 7
                     ],
                     dom: 'Bfrtip',
                     buttons: [
@@ -142,17 +127,17 @@ if (isset($_GET['info']) && $_GET['info'] == 1) {
                 });
 
                 // Add filtering options for each column
-                $('#results thead th').each(function () {
-                    var title = $(this).text();
-                    $(this).html('<input type="text" placeholder="' + title + '" />');
-                });
+                // $('#results thead th').each(function () {
+                //     var title = $(this).text();
+                //     $(this).html('<input type="text" placeholder="' + title + '" />');
+                // });
 
-                // Apply column-wise filtering
-                $('#results thead input').on('keyup change', function () {
-                    table.column($(this).parent().index() + ':visible')
-                        .search(this.value)
-                        .draw();
-                });
+                // // Apply column-wise filtering
+                // $('#results thead input').on('keyup change', function () {
+                //     table.column($(this).parent().index() + ':visible')
+                //         .search(this.value)
+                //         .draw();
+                // });
             });
 
         </script>

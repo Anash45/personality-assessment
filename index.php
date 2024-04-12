@@ -4,8 +4,12 @@
 session_start();
 require ('./defines/db_conn.php');
 require ('./defines/functions.php');
-if(!isLoggedIn()){
+if (!isLoggedIn()) {
     header('Location: ./signin.php');
+}
+$info = '';
+if (isset($_GET['info']) && $_GET['info'] == 1) {
+    $info = '<p class="alert alert-success w-fit mx-auto">Thank you, your assessment has been submitted successfully. We will get back to you shortly. You may <a href="logout.php" class="text-danger text-decoration-underline fw-medium">sign out</a> now.</p>';
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
@@ -23,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get the ID of the inserted row
         $resultID = $conn->lastInsertId();
 
-        
+
         // Loop through the option range and save each option in the "answers" table
         for ($i = 1; $i <= 20; $i++) {
             $optionKey = "option" . $i;
@@ -51,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         mailResults($resultID);
-        header('location:assessments.php?info=1');
+        header('location:index.php?info=1');
     } catch (Exception $e) {
         $info = '<p class="alert alert-danger">Error: ' . $e->getMessage() . '</p>';
     }
@@ -68,16 +72,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <title>Personality Assesments</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body>
         <div class="container">
-            <a href="assessments.php" class="btn btn-primary">My assessments</a>
-            <h1 class="text-center fw-bold my-4"> Personality Assesment </h1>
+            <a href="assessments.php" class="btn btn-primary mt-4">My assessments</a>
+            <h1 class="text-center fw-bold mb-4 mt-2"> Personality Assesment </h1>
             <form action="" method="POST" class="row justify-content-between" id="assessment_form">
                 <div class="col-12">
-                    <?php echo $info; ?>
+                <?php echo $info; ?>
                 </div>
                 <div class="col-sm-6">
                     <div class="table-responsive">
@@ -207,6 +211,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <script src="./js/jquery-3.6.1.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/script.js"></script>
+    <script src="./js/script.js?v=1"></script>
 
 </html>

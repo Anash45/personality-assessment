@@ -48,3 +48,23 @@
 th input[type="text"]{
     max-width: 100px;
 }
+
+.table{
+    margin: 0 auto;
+    width: fit-content !important;
+}
+
+#results_filter{
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.notChecked td{
+    border: 1px solid red;
+    background-color: #ffe8e8;
+}
+
+.w-fit{
+    width: fit-content;
+}

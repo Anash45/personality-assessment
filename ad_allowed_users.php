@@ -80,7 +80,7 @@ try {
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="dashboard-body">
@@ -103,17 +103,16 @@ try {
                 <?php include ('./defines/navbar.php'); ?>
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Allowed Users</h1>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 text-center">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"> Add Email/s </button>
                             <?php echo $info;
                             echo $info1; ?>
-                            <h2 class="fw-bold mt-4">Allowed Emails</h2>
                             <table class="table table-light">
                                 <thead class="bg-dark">
                                     <tr>
@@ -193,7 +192,7 @@ try {
         </div>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
     </body>
 
 </html>

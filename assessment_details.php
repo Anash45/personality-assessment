@@ -146,7 +146,7 @@ if (isset($_GET['resultID'])) {
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="dashboard-body">
@@ -221,7 +221,7 @@ if (isset($_GET['resultID'])) {
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
         <script>
             $(document).ready(function () {
                 // Initialize DataTables with date range filtering

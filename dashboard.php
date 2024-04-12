@@ -5,6 +5,8 @@ require('./defines/functions.php');
 if(!isAdmin()){
     header('Location: ./signin.php');
 }
+$usersCount = countUsers($conn);
+$resultsCount = countResults($conn);
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +20,7 @@ if(!isAdmin()){
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="dashboard-body">
@@ -45,18 +47,18 @@ if(!isAdmin()){
                         <h1 class="h2">Dashboard</h1>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 py-sm-0 py-2">
+                        <div class="col-md-3 col-sm-4 py-sm-0 py-2">
                             <div class="card bg-primary text-white">
                                 <div class="card-body">
-                                    <h2 class="fw-bold">54</h2>
+                                    <h2 class="fw-bold"><?php echo $usersCount ?></h2>
                                     <h6 class="mb-0 ">Users</h6>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 py-sm-0 py-2">
+                        <div class="col-md-3 col-sm-4 py-sm-0 py-2">
                             <div class="card bg-success text-white">
                                 <div class="card-body">
-                                    <h2 class="fw-bold">34</h2>
+                                    <h2 class="fw-bold"><?php echo $resultsCount ?></h2>
                                     <h6 class="mb-0 ">Assessments</h6>
                                 </div>
                             </div>
@@ -67,7 +69,7 @@ if(!isAdmin()){
         </div>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
     </body>
 
 </html>

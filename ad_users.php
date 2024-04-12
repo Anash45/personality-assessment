@@ -2,7 +2,7 @@
 session_start();
 require ('./defines/db_conn.php');
 require ('./defines/functions.php');
-if(!isAdmin()){
+if (!isAdmin()) {
     header('Location: ./signin.php');
 }
 $info = '';
@@ -52,7 +52,7 @@ try {
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="dashboard-body">
@@ -75,57 +75,105 @@ try {
                 <?php include ('./defines/navbar.php'); ?>
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                     <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Users</h1>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <?php echo $info; ?>
-                            <table class="table table-light">
-                                <thead class="bg-dark">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Assessments</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    try {
-                                        // Fetch all users from the users table
-                                        $stmt = $conn->query("SELECT * FROM users");
-                                        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            <div class="mb-4">
+                                <h4 class="fw-bold h4 text-center mb-4">Admins</h4>
+                                <table class="table table-light">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Assessments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        try {
+                                            // Fetch all users from the users table
+                                            $stmt = $conn->query("SELECT * FROM users WHERE role = 'admin'");
+                                            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                        // Display users in the specified format
-                                        foreach ($users as $user) {
-                                            // Get the count of assessments for the current user
-                                            $stmt = $conn->prepare("SELECT COUNT(*) AS assessment_count FROM results WHERE userID = :userID");
-                                            $stmt->bindParam(':userID', $user['userID']);
-                                            $stmt->execute();
-                                            $assessment_count = $stmt->fetch()['assessment_count'];
+                                            // Display users in the specified format
+                                            foreach ($users as $user) {
+                                                // Get the count of assessments for the current user
+                                                $stmt = $conn->prepare("SELECT COUNT(*) AS assessment_count FROM results WHERE userID = :userID");
+                                                $stmt->bindParam(':userID', $user['userID']);
+                                                $stmt->execute();
+                                                $assessment_count = $stmt->fetch()['assessment_count'];
 
-                                            echo "<tr>";
-                                            echo "<td>" . $user['userID'] . "</td>";
-                                            echo "<td>" . $user['name'] . "</td>";
-                                            echo "<td>" . $user['email'] . "</td>";
-                                            echo "<td>" . ($user['active'] ? '<span class="rounded-pill bg-success badge">Active</span>' : '<span class="rounded-pill bg-danger badge">Inactive</span>') . "</td>";
-                                            echo "<td>" . $assessment_count . "</td>";
-                                            echo "<td><a href='?changeStatus=" . ($user['active'] ? '0' : '1') . "&userID=" . $user['userID'] . "' class='btn btn-sm btn-" . ($user['active'] ? 'danger' : 'success') . " btn-sm' onclick=\"return confirm('Do you really want to perform this action?')\">" . ($user['active'] ? 'Deactivate' : 'Activate') . "</a></td>";
-                                            echo "</tr>";
+                                                echo "<tr>";
+                                                echo "<td>" . $user['userID'] . "</td>";
+                                                echo "<td>" . $user['fname'] . " " . $user['lname'] . "</td>";
+                                                echo "<td>" . $user['email'] . "</td>";
+                                                echo "<td>" . ($user['active'] ? '<span class="rounded-pill bg-success badge">Active</span>' : '<span class="rounded-pill bg-danger badge">Inactive</span>') . "</td>";
+                                                echo "<td>" . $assessment_count . "</td>";
+                                               // echo "<td><a href='?changeStatus=" . ($user['active'] ? '0' : '1') . "&userID=" . $user['userID'] . "' class='btn btn-sm btn-" . ($user['active'] ? 'danger' : 'success') . " btn-sm' onclick=\"return confirm('Do you really want to perform this action?')\">" . ($user['active'] ? 'Deactivate' : 'Activate') . "</a></td>";
+                                                echo "</tr>";
+                                            }
+                                        } catch (PDOException $e) {
+                                            // Display error message
+                                            echo '<p class="alert alert-danger">Error: ' . $e->getMessage() . '</p>';
                                         }
-                                    } catch (PDOException $e) {
-                                        // Display error message
-                                        echo '<p class="alert alert-danger">Error: ' . $e->getMessage() . '</p>';
-                                    }
 
-                                    // Close the database connection
-                                    $conn = null;
-                                    ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mb-5">
+                                <h4 class="fw-bold h4 text-center mb-4">Users</h4>
+                                <table class="table table-light">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Assessments</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        try {
+                                            // Fetch all users from the users table
+                                            $stmt = $conn->query("SELECT * FROM users WHERE role = 'user'");
+                                            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                            // Display users in the specified format
+                                            foreach ($users as $user) {
+                                                // Get the count of assessments for the current user
+                                                $stmt = $conn->prepare("SELECT COUNT(*) AS assessment_count FROM results WHERE userID = :userID");
+                                                $stmt->bindParam(':userID', $user['userID']);
+                                                $stmt->execute();
+                                                $assessment_count = $stmt->fetch()['assessment_count'];
+
+                                                echo "<tr>";
+                                                echo "<td>" . $user['userID'] . "</td>";
+                                                echo "<td>" . $user['fname'] . " " . $user['lname'] . "</td>";
+                                                echo "<td>" . $user['email'] . "</td>";
+                                                echo "<td>" . ($user['active'] ? '<span class="rounded-pill bg-success badge">Active</span>' : '<span class="rounded-pill bg-danger badge">Inactive</span>') . "</td>";
+                                                echo "<td>" . $assessment_count . "</td>";
+                                                echo "<td><a href='?changeStatus=" . ($user['active'] ? '0' : '1') . "&userID=" . $user['userID'] . "' class='btn btn-sm btn-" . ($user['active'] ? 'danger' : 'success') . " btn-sm' onclick=\"return confirm('Do you really want to perform this action?')\">" . ($user['active'] ? 'Deactivate' : 'Activate') . "</a></td>";
+                                                echo "</tr>";
+                                            }
+                                        } catch (PDOException $e) {
+                                            // Display error message
+                                            echo '<p class="alert alert-danger">Error: ' . $e->getMessage() . '</p>';
+                                        }
+
+                                        // Close the database connection
+                                        $conn = null;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -133,7 +181,7 @@ try {
         </div>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
     </body>
 
 </html>

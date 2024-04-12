@@ -11,7 +11,8 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Sanitize and validate input data
-        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+        $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_STRING);
+        $lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $role = 'user'; // Set default role to "user"
@@ -38,8 +39,9 @@ try {
                     $info = '<p class="alert alert-danger">User with the same email already exists.</p>';
                 } else {
                     // Insert user data into the users table
-                    $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
-                    $stmt->bindParam(':name', $name);
+                    $stmt = $conn->prepare("INSERT INTO users (fname, lname, email, password, role) VALUES (:fname, :lname, :email, :password, :role)");
+                    $stmt->bindParam(':fname', $fname);
+                    $stmt->bindParam(':lname', $lname);
                     $stmt->bindParam(':email', $email);
                     $stmt->bindParam(':password', $password);
                     $stmt->bindParam(':role', $role);
@@ -76,7 +78,7 @@ $conn = null;
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css?v=1">
     </head>
 
     <body class="text-center ss-body" cz-shortcut-listen="true">
@@ -90,9 +92,14 @@ $conn = null;
                         <h1 class="h3 mb-3 fw-bold">Sign up</h1>
                         <?php echo $info; ?>
                         <div class="form-floating mb-3">
-                            <input type="name" required class="form-control" id="name" name="name"
-                                placeholder="John Doe">
-                            <label for="name">Name</label>
+                            <input type="text" required class="form-control" id="fname" name="fname"
+                                placeholder="John">
+                            <label for="fname">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" required class="form-control" id="lname" name="lname"
+                                placeholder="John">
+                            <label for="lname">Last Name</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="email" required class="form-control" id="email" name="email"
@@ -114,7 +121,7 @@ $conn = null;
         </main>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./js/script.js?v=1"></script>
     </body>
 
 </html>

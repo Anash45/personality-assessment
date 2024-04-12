@@ -41,24 +41,18 @@ function mailResults($resultID)
         $to = $user['email'] . ',' . $admin['email'];
         $subject = "Assessment Results";
         $message = "
-    <h2>User's Name: " . $user['name'] . "</h2>
-    <h4>Date: " . date('M d, Y', strtotime($result['createdAt'])) . "</h4>
+    <h2>Hello " . $user['name'] . ",</h2>
+    <p>Thank you for taking our personality assessment. Your results are here in the table below:</p>
     <table>
         <tr>
             <th>Strengths</th>
             <td>" . implode(", ", $strengths) . "</td>
-        </tr>
-        <tr>
-            <th>Strengths Score</th>
-            <td>$score1</td>
+            <td>Score - $score1</td>
         </tr>
         <tr>
             <th>Weaknessess</th>
             <td>" . implode(", ", $weaknesses) . "</td>
-        </tr>
-        <tr>
-            <th>Weaknesses Score</th>
-            <td>$score2</td>
+            <td>Score - $score2</td>
         </tr>
     </table>
     ";
@@ -72,10 +66,13 @@ function mailResults($resultID)
                 $message .= "<p>" . $note['noteText'] . "</p>";
             }
         }
+        $message .= "<p>We will follow up with your with further comments, analysis, and recommendations.</p>";
+        $message .= "<p>Yours, Admin</p>";
+        
         // echo $message;
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: Assessment Results <admin@f4futuretech.com>" . "\r\n";
+        $headers .= "From: Your Personality Assessment Results <admin@f4futuretech.com>" . "\r\n";
 
         // Send the email
         mail($to, $subject, $message, $headers);
@@ -101,7 +98,8 @@ function isUser()
     return isLoggedIn() && $_SESSION['role'] == 'user'; // Assuming role is stored in session
 }
 
-function separateString($string) {
+function separateString($string)
+{
     // Find the position of the last space in the string
     $lastSpacePos = strrpos($string, ' ');
 
@@ -115,4 +113,36 @@ function separateString($string) {
     $secondPart = substr($string, $lastSpacePos + 1);
 
     return [$firstPart, $secondPart];
+}
+
+// Function to count records in the users table
+function countUsers($conn)
+{
+    try {
+        // Prepare the SQL statement to count records in the users table
+        $stmt = $conn->query("SELECT COUNT(*) AS totalUsers FROM users");
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Return the count of users
+        return $result['totalUsers'];
+    } catch (PDOException $e) {
+        // Handle any database errors
+        return -1; // Return -1 to indicate an error occurred
+    }
+}
+
+// Function to count records in the results table
+function countResults($conn)
+{
+    try {
+        // Prepare the SQL statement to count records in the results table
+        $stmt = $conn->query("SELECT COUNT(*) AS totalResults FROM results");
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Return the count of results
+        return $result['totalResults'];
+    } catch (PDOException $e) {
+        // Handle any database errors
+        return -1; // Return -1 to indicate an error occurred
+    }
 }

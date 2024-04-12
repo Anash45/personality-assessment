@@ -21,7 +21,7 @@
             ?>
             <li class="nav-item">
                 <a class="nav-link ps-0 mb-1" href="assessments.php">
-                    <i class="fa fa-poll"></i> Assessments </a>
+                    <i class="fa fa-poll"></i> Completed Assessments </a>
             </li>
         </ul>
     </div>
