@@ -29,7 +29,7 @@ try {
                 if ($user && $user['active']) {
                     // Start session and set session variables
                     session_start();
-                    $_SESSION['name'] = $user['name'];
+                    $_SESSION['name'] = $user['fname'] ." ".$user['lname'];
                     $_SESSION['userID'] = $user['userID'];
                     $_SESSION['role'] = $user['role'];
 

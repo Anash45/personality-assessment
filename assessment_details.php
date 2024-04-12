@@ -89,23 +89,17 @@ if (isset($_GET['resultID'])) {
 
         $show = "
         <table class='table bg-light table-bordered'>
-        <tr><td colspan='2'><h2>User's Name: " . $user['name'] . "</h2></td></tr>
+        <tr><td colspan='2'><h2>User's Name: " . $user['fname'] . " " . $user['lname'] . "</h2></td></tr>
         <tr><td colspan='2'><h4>Date: " . date('M d, Y', strtotime($result['createdAt'])) . "</h4></td></tr>
         <tr>
             <th class='bg-dark text-white'>Strengths</th>
             <td>" . implode(", ", $strengths) . "</td>
-        </tr>
-        <tr>
-            <th class='bg-dark text-white'>Strengths Score</th>
-            <td>$score1</td>
+            <td>Score: $score1</td>
         </tr>
         <tr>
             <th class='bg-dark text-white'>Weaknessess</th>
             <td>" . implode(", ", $weaknesses) . "</td>
-        </tr>
-        <tr>
-            <th class='bg-dark text-white'>Weaknesses Score</th>
-            <td>$score2</td>
+            <td>Score: $score2</td>
         </tr>
     ";
         if (isAdmin()) {

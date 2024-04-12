@@ -41,7 +41,7 @@ function mailResults($resultID)
         $to = $user['email'] . ',' . $admin['email'];
         $subject = "Assessment Results";
         $message = "
-    <h2>Hello " . $user['name'] . ",</h2>
+    <h2>Hello " . $user['fname'] . " " . $user['lname'] . ",</h2>
     <p>Thank you for taking our personality assessment. Your results are here in the table below:</p>
     <table>
         <tr>
