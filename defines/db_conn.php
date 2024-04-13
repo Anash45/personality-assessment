@@ -7,11 +7,11 @@ $password = "W1z@8o8a3p";
 $database = "u956940883_adeanjy";
 
 
-// // Database connection parameters
-// $servername = "localhost";
-// $username = "root";
-// $password = "root";
-// $database = "quiz_db";
+// Database connection parameters
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$database = "quiz_db";
 
 try {
     // Create connection

@@ -49,6 +49,10 @@ try {
 
                     // Check if user was successfully registered
                     if ($stmt->rowCount() > 0) {
+                        // Remove email from allowed_users table
+                        $stmt = $conn->prepare("DELETE FROM allowed_users WHERE email = ?");
+                        $stmt->execute([$email]);
+
                         $info = '<p class="alert alert-success">User registered successfully.</p>';
                     } else {
                         $info = '<p class="alert alert-danger">Failed to register user.</p>';
@@ -78,27 +82,30 @@ $conn = null;
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css?v=1">
+        <link rel="stylesheet" href="./css/style.css?v=2">
     </head>
 
     <body class="text-center ss-body" cz-shortcut-listen="true">
         <main class="form-signin">
+            <img src="./assets/logo.png" alt="Logo" height="60" class="mx-auto mb-3">
             <div class="card">
                 <div class="card-body">
                     <form method="POST" class="needs-validation" novalidate>
+                        <div class="text-center">
+                            <h2 class="fw-bold h4 mb-0"> Northern Star Institute </h2>
+                            <h3 class="h6 mb-4">Personality Assessment Portal</h3>
+                        </div>
                         <div class="mb-2">
                             <i class="fa fa-user-plus fs-2 text-primary"></i>
                         </div>
                         <h1 class="h3 mb-3 fw-bold">Sign up</h1>
                         <?php echo $info; ?>
                         <div class="form-floating mb-3">
-                            <input type="text" required class="form-control" id="fname" name="fname"
-                                placeholder="John">
+                            <input type="text" required class="form-control" id="fname" name="fname" placeholder="John">
                             <label for="fname">First Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" required class="form-control" id="lname" name="lname"
-                                placeholder="John">
+                            <input type="text" required class="form-control" id="lname" name="lname" placeholder="John">
                             <label for="lname">Last Name</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -121,7 +128,7 @@ $conn = null;
         </main>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js?v=1"></script>
+        <script src="./js/script.js?v=2"></script>
     </body>
 
 </html>

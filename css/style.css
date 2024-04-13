@@ -7,11 +7,11 @@
 }
 
 .nav-link {
-    color: #fff;
+    color: #000000E6;
 }
 
 .nav-link.active {
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid #000000E6;
 }
 
 .sidebar {
@@ -41,30 +41,42 @@
     z-index: 2;
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }
 
-th input[type="text"]{
+th input[type="text"] {
     max-width: 100px;
 }
 
-.table{
+.table {
     margin: 0 auto;
     width: fit-content !important;
 }
 
-#results_filter{
+#results_filter {
     display: block;
     text-align: center;
     width: 100%;
     margin-bottom: 1rem;
 }
-.notChecked td{
+
+.notChecked td {
     border: 1px solid red;
     background-color: #ffe8e8;
 }
 
-.w-fit{
+.w-fit {
     width: fit-content;
+}
+.navbar.shadow {
+    box-shadow: 0px 1px 0px #0000002b !important;
+}
+@media (max-width: 992px) {
+    .div-table .table{
+        font-size: 0.8rem;
+    }
+    .div-table .div-table td label {
+        padding: 4px !important;
+    }
 }

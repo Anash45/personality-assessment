@@ -29,14 +29,14 @@ try {
                 if ($user && $user['active']) {
                     // Start session and set session variables
                     session_start();
-                    $_SESSION['name'] = $user['fname'] ." ".$user['lname'];
+                    $_SESSION['name'] = $user['fname'] . " " . $user['lname'];
                     $_SESSION['userID'] = $user['userID'];
                     $_SESSION['role'] = $user['role'];
 
                     // Redirect to index.php page
-                    if($user['role'] == 'admin'){
+                    if ($user['role'] == 'admin') {
                         header("Location: dashboard.php");
-                    }else{
+                    } else {
                         header("Location: index.php");
                     }
                     exit();
@@ -69,14 +69,20 @@ $conn = null;
         <title>Personality Assessment - Dashboard</title>
         <link rel="stylesheet" href="./assets/fontawesome/css/all.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/style.css?v=1">
+        <link rel="stylesheet" href="./css/style.css?v=2">
     </head>
 
-    <body class="text-center ss-body" cz-shortcut-listen="true">
+    <body class="text-center ss-body flex-column" cz-shortcut-listen="true">
+        <!-- <img src="./assets/logo.png" alt="Logo" height="60" class="d-block me-auto ms-5"> -->
         <main class="form-signin">
+            <img src="./assets/logo.png" alt="Logo" height="60" class="mx-auto mb-3">
             <div class="card">
                 <div class="card-body">
                     <form method="POST" class="needs-validation" novalidate>
+                        <div class="text-center">
+                            <h2 class="fw-bold h4 mb-0"> Northern Star Institute </h2>
+                            <h3 class="h6 mb-4">Personality Assessment Portal</h3>
+                        </div>
                         <div class="mb-2">
                             <i class="fa fa-user-plus fs-2 text-primary"></i>
                         </div>
@@ -102,7 +108,7 @@ $conn = null;
         </main>
         <script src="./js/jquery-3.6.1.min.js"></script>
         <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/script.js?v=1"></script>
+        <script src="./js/script.js?v=2"></script>
     </body>
 
 </html>

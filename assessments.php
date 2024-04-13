@@ -21,13 +21,13 @@ $info = '';
         <link rel="stylesheet" href="./css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.1/css/dataTables.dateTime.min.css">
-        <link rel="stylesheet" href="./css/style.css?v=1">
+        <link rel="stylesheet" href="./css/style.css?v=2">
     </head>
 
     <body class="dashboard-body">
-        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <header class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 me-sm-auto me-5 px-3 mx-md-0 mx-auto fw-bold"
-                href="index.php">Personality Assessment</a>
+                href="index.php"><img src="./assets/logo.png" alt="Logo" height="60"></a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -108,7 +108,7 @@ $info = '';
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
-        <script src="./js/script.js?v=1"></script>
+        <script src="./js/script.js?v=2"></script>
         <script>
             $(document).ready(function () {
                 // Initialize DataTables with date range filtering
