@@ -54,7 +54,8 @@ $info = '';
                                 <table class="table w-fit table-light" id="results">
                                     <thead class="bg-dark">
                                         <tr>
-                                            <th>User</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
                                             <th>Date</th>
                                             <th>Scores</th>
                                             <th>Action</th>
@@ -84,7 +85,8 @@ $info = '';
 
                                                 // Display table row
                                                 echo "<tr>";
-                                                echo "<td>" . $user['fname'] . " " . $user['lname'] . "<br>" . $user['email'] . "</td>";
+                                                echo "<td>" . $user['fname'] . " " . $user['lname'] . "</td>";
+                                                echo "<td>" . $user['email'] . "</td>";
                                                 echo "<td><span>" . date("M d, Y", strtotime($row['createdAt'])) . "</span></td>";
                                                 echo "<td><span>Strengths: " . $row['score1'] . "</span><br><span>Weaknesses: " . $row['score2'] . "</span></td>";
                                                 echo "<td><a href='assessment_details.php?resultID=" . $row['resultID'] . "' class='btn btn-primary btn-sm'>Details</a></td>";
